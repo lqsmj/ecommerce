@@ -25,12 +25,14 @@ public class ProdutoConsumer {
     @Autowired
     private ProdutoService produtoService;
 
+    /**
+     * Método para receber dados do produto via Kafka
+     * @param record
+     */
     @KafkaListener(topics = "${topic.name}", groupId = "${spring.kafka.group-id}", containerFactory = "produtoKafkaListenerContainerFactory")
     public void listenTopicProduto(ConsumerRecord<String, ProdutoDto> record){
-        Produto produto = new Produto();
-        produto.setNome(record.value().getNome());
-        produto.setPreco(record.value().getPreco());
-       produtoService.salvar(produto);
+
+       produtoService.prepararProduto(record.value());
         log.info("Recived Message"+record.partition());
         log.info("Recived Message" + record.value());
     }

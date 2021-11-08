@@ -5,8 +5,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ProdutoDto {
+public class ItemCarrinhoDto {
+
     private Long id;
-    private String nome;
-    private double preco;
+    private Long idProduto;
+    private String  email;
+    private Integer quantidade;
+
 }
