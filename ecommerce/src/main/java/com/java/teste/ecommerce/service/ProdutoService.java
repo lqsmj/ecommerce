@@ -5,6 +5,7 @@ import com.java.teste.ecommerce.entity.Produto;
 import com.java.teste.ecommerce.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,15 +17,24 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     /**
-     * Método para salvar o produto
+     * Método que prepara o Dto para salvar o produto
      * @param produtoDto
      * @return
      */
-    public Produto prepararProduto(ProdutoDto produtoDto){
+    public void prepararProduto(ProdutoDto produtoDto){
+
         Produto produto = new Produto();
+
         produto.setNome(produtoDto.getNome());
+        /*if(produto.getNome()!=null){
+            produto.setNome(produtoDto.getNome());
+        }else{
+            produto.setNome("Produto sem nome");
+        }*/
         produto.setPreco(produtoDto.getPreco());
-        return produtoRepository.save(produto);
+
+            produtoRepository.save(produto);
+
     }
 
 

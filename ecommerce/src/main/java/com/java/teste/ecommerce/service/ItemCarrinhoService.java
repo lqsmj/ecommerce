@@ -28,16 +28,16 @@ public class ItemCarrinhoService {
         Produto produto = new Produto();
         produto.setId(itemCarrinhoDto.getIdProduto());
 
-        itemCarrinho.setProduto(produto);
-        itemCarrinho.setEmail(itemCarrinhoDto.getEmail());
-        itemCarrinho.setQuantidade(itemCarrinhoDto.getQuantidade());
-        itemCarrinho.setNumeroCarrinho(getNumeroCarrinho(itemCarrinhoDto.getEmail()));
 
         ItemCarrinho ic = itemCarrinhoRepository.findTopByEmailAndProduto(itemCarrinhoDto.getEmail(),produto);
         if(ic!=null){
             ic.setQuantidade(itemCarrinhoDto.getQuantidade());
             return itemCarrinhoRepository.save(ic);
         }else{
+            itemCarrinho.setProduto(produto);
+            itemCarrinho.setEmail(itemCarrinhoDto.getEmail());
+            itemCarrinho.setQuantidade(itemCarrinhoDto.getQuantidade());
+            itemCarrinho.setNumeroCarrinho(getNumeroCarrinho(itemCarrinhoDto.getEmail()));
             return itemCarrinhoRepository.save(itemCarrinho);
         }
 
@@ -69,7 +69,7 @@ public class ItemCarrinhoService {
     }
 
     /**
-     * Método para verificar com qual numeroCarrinho deve ser salvo
+     * Método para verificar qual valor de numeroCarrinho deve ser salvo
      * @param email
      * @return
      */
@@ -83,8 +83,9 @@ public class ItemCarrinhoService {
             if(!ObjectUtils.isEmpty(itemCarrinho)){
                 numeroCarrinho = itemCarrinho.get().getNumeroCarrinho();
                 return numeroCarrinho;
-            }else{
-                ItemCarrinho ic = itemCarrinhoRepository.findTopByOrderByNumeroCarrinhoDesc();
+            }
+            ItemCarrinho ic = itemCarrinhoRepository.findTopByOrderByNumeroCarrinhoDesc();
+            if(ic!=null){
                 numeroCarrinho = ic.getNumeroCarrinho()+1;
                 return numeroCarrinho;
             }

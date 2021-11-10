@@ -3,6 +3,7 @@ package com.java.teste.ecommerce.consumer;
 import com.java.teste.ecommerce.dto.ItemCarrinhoDto;
 import com.java.teste.ecommerce.entity.ItemCarrinho;
 import com.java.teste.ecommerce.entity.Produto;
+import com.java.teste.ecommerce.service.DeadLetterService;
 import com.java.teste.ecommerce.service.ItemCarrinhoService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
@@ -26,15 +27,26 @@ public class ItemCarrinhoConsumer {
     @Autowired
     private ItemCarrinhoService itemCarrinhoService;
 
+    @Autowired
+    private DeadLetterService deadLetterService;
+
+
     /**
      * Método para receber dados do ItemCarrinho via Kafka
      * @param record
      */
     @KafkaListener(topics = "${topic.name.carrinho}", groupId = "${spring.kafka.group-id}", containerFactory = "itemCarrinhoKafkaListenerContainerFactory")
     public void listenTopicProduto(ConsumerRecord<String, ItemCarrinhoDto> record){
-        log.info("Recived Message"+record.partition());
-        log.info("Recived Message" + record.value());
-        itemCarrinhoService.prepararItemCarrinho(record.value());
+       try{
+           log.info("Recived Message"+record.partition());
+           log.info("Recived Message" + record.value());
+           itemCarrinhoService.prepararItemCarrinho(record.value());
+       } catch (Exception e) {
+           log.error("Erro desconhecido ao tentar salvar", e);
+           deadLetterService.enviarParaDLQ(record.value().toString(), topic, e.getMessage());
+
+       }
+
     }
 
 }

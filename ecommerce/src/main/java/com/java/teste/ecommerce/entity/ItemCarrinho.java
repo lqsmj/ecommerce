@@ -20,15 +20,15 @@ public class ItemCarrinho {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_produto", referencedColumnName = "id")
+    @JoinColumn(name = "id_produto", referencedColumnName = "id", nullable = false)
     private Produto produto;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "numero_carrinho")
     private Integer numeroCarrinho;
 
-    @Column(name = "quantidade")
+    @Column(name = "quantidade", nullable = false)
     private Integer quantidade;
 }
