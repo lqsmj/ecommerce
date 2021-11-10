@@ -44,11 +44,11 @@ public class ItemCarrinhoService {
     }
 
     /**
-     * Método para buscar todos os itemCarrinho
+     * Método para buscar todos os itemCarrinho a partir do email
      * @return
      */
-    public List<ItemCarrinho> listarItensCarrinho(){
-        return itemCarrinhoRepository.findAll();
+    public List<ItemCarrinho> listarItensCarrinhoPorEmail(String email){
+        return itemCarrinhoRepository.findByEmail(email);
     }
 
     /**
