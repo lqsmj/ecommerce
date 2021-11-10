@@ -24,16 +24,9 @@ public class ProdutoService {
     public void prepararProduto(ProdutoDto produtoDto){
 
         Produto produto = new Produto();
-
         produto.setNome(produtoDto.getNome());
-        /*if(produto.getNome()!=null){
-            produto.setNome(produtoDto.getNome());
-        }else{
-            produto.setNome("Produto sem nome");
-        }*/
         produto.setPreco(produtoDto.getPreco());
-
-            produtoRepository.save(produto);
+        produtoRepository.save(produto);
 
     }
 

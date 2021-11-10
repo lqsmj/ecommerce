@@ -1,8 +1,6 @@
 package com.java.teste.ecommerce.consumer;
 
 import com.java.teste.ecommerce.dto.ItemCarrinhoDto;
-import com.java.teste.ecommerce.entity.ItemCarrinho;
-import com.java.teste.ecommerce.entity.Produto;
 import com.java.teste.ecommerce.service.DeadLetterService;
 import com.java.teste.ecommerce.service.ItemCarrinhoService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
