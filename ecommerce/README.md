@@ -69,3 +69,35 @@ Foram criados 2 producers:
 }
 
 O projeto utiliza Maven, SpringBoot 2.5.6 e Java 11.
+
+
+
+
+Sugestão de melhorias:
+
+Execução dos testes unitarios com Junit.
+Um tratamento de exeções mais robusto
+Validação de cada campo das requisições de forma individual.
+Criação de ferramenta para tratamento dos itens enviados ao DeadLetter.
+Modelagem do Banco de Dados, criação das seguintes tabelas:
++Produto
++ItemCarrinho
++Carrinho
++Usuario
+
+
+
+
+Comentarios:
+A modelagem do banco de dados atual, apesar de não atender as boas praticas, vizava cobrir a necessidade de criação de um novo carrinho para cada produto inserido de um usuario novo.
+Essa verificação poderia ter sido feita exclusivamente pelo campo email, porém não iria existir a validação solicitada, apenas a inserção e caso não tivesse um produto ainda seria adicionado sem verificação.
+(o email serviria como numeroCarrinho ).
+Devido ao curto tempo para desenvolvimento e para atender os demais requisitos não houve tempo para atualização e criação das tabelas
+de acordo com a sugestão de melhoria citada acima.
+
+
+Correção imediata:
+Em alguns momentos(ainda não identificados) o consumer "CarrinhoConsumer" entra em loop e fica repetindo a mesma solicitação,
+a alternativa para finalizar o teste foi usando a opção de excluir o topico no Conduktor(ferramenta de monitoramento dos topicos Kafka) e fazer uma nova solicitação.
+
+
