@@ -79,6 +79,7 @@ Execução dos testes unitarios com Junit.
 Um tratamento de exeções mais robusto
 Validação de cada campo das requisições de forma individual.
 Criação de ferramenta para tratamento dos itens enviados ao DeadLetter.
+Um melhor aproveitamento do codigo em relação a implementação das configurações, consumers e producers do Kafka.
 Modelagem do Banco de Dados, criação das seguintes tabelas:
 +Produto
 +ItemCarrinho
